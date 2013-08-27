@@ -36,6 +36,19 @@
 #include "vchiq_core.h"
 #include "vchiq_arm.h"
 
+#if 1
+
+int vchiq_proc_init(void)
+{
+	return 0;
+}
+
+void vchiq_proc_deinit(void)
+{
+}
+
+#else
+
 struct vchiq_proc_info {
 	/* Global 'vc' proc entry used by all instances */
 	struct proc_dir_entry *vc_cfg_dir;
@@ -159,7 +172,10 @@ static int vchiq_proc_create_log_entries(struct proc_dir_entry *top)
 	struct proc_dir_entry *dir;
 	size_t i;
 	int ret = 0;
+<<<<<<< HEAD
 #if 0
+=======
+>>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 	dir = proc_mkdir("log", proc_info.vc_cfg_dir);
 	if (!dir)
 		return -ENOMEM;
@@ -180,7 +196,10 @@ static int vchiq_proc_create_log_entries(struct proc_dir_entry *top)
 
 		vchiq_proc_log_entries[i].dir = dir;
 	}
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 	return ret;
 }
 
@@ -216,7 +235,10 @@ fail:
 void vchiq_proc_deinit(void)
 {
 	/* log category entries */
+<<<<<<< HEAD
 #if 0
+=======
+>>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 	if (proc_info.log_categories) {
 		size_t i;
 		for (i = 0; i < n_log_entries; i++)
@@ -233,7 +255,10 @@ void vchiq_proc_deinit(void)
 				  proc_info.vc_cfg_dir);
 	if (proc_info.vc_cfg_dir)
 		remove_proc_entry(proc_info.vc_cfg_dir->name, NULL);
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 }
 
 struct proc_dir_entry *vchiq_clients_top(void)
@@ -241,3 +266,8 @@ struct proc_dir_entry *vchiq_clients_top(void)
 	return proc_info.clients;
 }
 
+<<<<<<< HEAD
+=======
+#endif
+
+>>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed

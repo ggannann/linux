@@ -2751,6 +2751,9 @@ static int proc_read_use_count(char *page, char **start,
 /* add an instance (process) to the proc entries */
 static int vchiq_proc_add_instance(VCHIQ_INSTANCE_T instance)
 {
+#if 1
+	return 0;
+#else
 	char pidstr[32];
 	struct proc_dir_entry *top, *use_count;
 	struct proc_dir_entry *clients = vchiq_clients_top();
@@ -2760,7 +2763,7 @@ static int vchiq_proc_add_instance(VCHIQ_INSTANCE_T instance)
 	top = proc_mkdir(pidstr, clients);
 	if (!top)
 		goto fail_top;
-#if 0
+
 	use_count = create_proc_read_entry("use_count",
 					   0444, top,
 					   proc_read_use_count,
@@ -2769,15 +2772,14 @@ static int vchiq_proc_add_instance(VCHIQ_INSTANCE_T instance)
 		goto fail_use_count;
 
 	instance->proc_entry = top;
-#endif
+
 	return 0;
 
 fail_use_count:
-#if 0
 	remove_proc_entry(top->name, clients);
-#endif
 fail_top:
 	return -ENOMEM;
+#endif
 }
 
 static void vchiq_proc_remove_instance(VCHIQ_INSTANCE_T instance)
