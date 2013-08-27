@@ -83,10 +83,7 @@
 /* command line parameters */
 static unsigned boardrev, serial;
 static unsigned uart_clock;
-<<<<<<< HEAD
-=======
 static unsigned reboot_part = 0;
->>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 
 static void __init bcm2708_init_led(void);
 
@@ -628,8 +625,6 @@ int __init bcm_register_device(struct platform_device *pdev)
 	return ret;
 }
 
-<<<<<<< HEAD
-=======
 int calc_rsts(int partition)
 {
 	return PM_PASSWORD |
@@ -641,23 +636,10 @@ int calc_rsts(int partition)
 		((partition & (1 << 5))  << 5);
 }
 
->>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 static void bcm2708_restart(char mode, const char *cmd)
 {
 	uint32_t pm_rstc, pm_wdog;
 	uint32_t timeout = 10;
-<<<<<<< HEAD
-
-	/* For quick reset notification add reboot=q to cmdline
-	 */
-	if(mode == 'q')
-	{
-		uint32_t pm_rsts = readl(__io_address(PM_RSTS));
-		pm_rsts = PM_PASSWORD | pm_rsts | PM_RSTS_HADWRQ_SET;
-		writel(pm_rsts, __io_address(PM_RSTS));
-	}
-
-=======
 	uint32_t pm_rsts = 0;
 
 	if(mode == 'q')
@@ -679,7 +661,6 @@ static void bcm2708_restart(char mode, const char *cmd)
 
 	writel(pm_rsts, __io_address(PM_RSTS));
 
->>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 	/* Setup watchdog for reset */
 	pm_rstc = readl(__io_address(PM_RSTC));
 
@@ -693,14 +674,6 @@ static void bcm2708_restart(char mode, const char *cmd)
 /* We can't really power off, but if we do the normal reset scheme, and indicate to bootcode.bin not to reboot, then most of the chip will be powered off */
 static void bcm2708_power_off(void)
 {
-<<<<<<< HEAD
-	/* we set the watchdog hard reset bit here to distinguish this reset from the normal (full) reset. bootcode.bin will not reboot after a hard reset */
-	uint32_t pm_rsts = readl(__io_address(PM_RSTS));
-	pm_rsts = PM_PASSWORD | (pm_rsts & PM_RSTC_WRCFG_CLR) | PM_RSTS_HADWRH_SET;
-	writel(pm_rsts, __io_address(PM_RSTS));
-	/* continue with normal reset mechanism */
-	bcm2708_restart(0, "");
-=======
 	extern char reboot_mode;
 
 	if(reboot_mode == 'q')
@@ -715,7 +688,6 @@ static void bcm2708_power_off(void)
 		/* continue with normal reset mechanism */
 		bcm2708_restart(0, "");
 	}
->>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
 }
 
 void __init bcm2708_init(void)
@@ -942,7 +914,4 @@ MACHINE_END
 module_param(boardrev, uint, 0644);
 module_param(serial, uint, 0644);
 module_param(uart_clock, uint, 0644);
-<<<<<<< HEAD
-=======
 module_param(reboot_part, uint, 0644);
->>>>>>> 2ed7ca02343ab6d10262f99fcf2b4e189d1aabed
