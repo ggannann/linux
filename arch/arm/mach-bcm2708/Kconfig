@@ -31,6 +31,14 @@ config BCM2708_NOL2CACHE
         help
           Do not allow ARM to use GPU's L2 cache. Requires disable_l2cache in config.txt.
 
+config BCM2708_SPIDEV
+	bool "Bind spidev to SPI0 master"
+	depends on MACH_BCM2708
+	depends on SPI
+        default y
+        help
+          Binds spidev driver to the SPI0 master
+
 config BCM2708_DMAER
 	tristate "BCM2708 DMA helper"
 	depends on MACH_BCM2708
@@ -38,11 +46,4 @@ config BCM2708_DMAER
         help
           Enable DMA helper for accelerating X composition
 
-config BCM2708_SPIDEV
-	bool "Bind spidev to SPI0 master"
-	depends on MACH_BCM2708  
-	depends on SPI
-        default y
-		help 
-			Binds spidev driver to the SPI0 master  
 endmenu
