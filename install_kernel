@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# script to install new kernel in Raspbian
+#
+# Working Directory has the new kernel
+#
+kversion=$(make -s kernelrelease)
+echo "Installing Kernel Version $kversion"
+sudo make modules_install
+echo "Copying kernel image"
+sudo cp arch/arm/boot/Image /boot/kernel.img
+
